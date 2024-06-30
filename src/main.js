@@ -32,25 +32,45 @@ refs.formElem.addEventListener('submit', onFormSubmit);
 async function onFormSubmit(e) {
   e.preventDefault();
   query = e.target.elements.query.value.trim();
-  showSpinner();
+  // showSpinner();
   currentPage = 1;
   refs.articleListElem.innerHTML = '';
   
   const ok = query.trim() !== '';
   if (!ok) {
         hideSpinner();
+        hideLoad();
         iziToast.error({
             message: 'Info Search input must be filled!',
         });
+
         return;
     }
-
+   try {
   const data = await getArticles(query,currentPage);
-  totalPages = data.total_pages;
+  hideSpinner();
+      if (data.total == 0) {
+         iziToast.info({
+        title: 'Sorry,',
+        message: "there are no images matching your search query. Please try again!",
+      });
+    }
+ totalPages = data.total_pages;
   renderArticles(data.hits);
   // updateStatusObserver();
   hideSpinner();
   showLoad();
+
+   }
+   catch (err) {
+        newsApi.totalResult = 0;
+        iziToast.error({
+          title: 'Error1',
+          message: err.message,
+        });
+      }
+  
+
     
   if (currentPage == data.total_pages) { 
     iziToast.info({
@@ -139,6 +159,8 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
 });
 
+console.log("shut down");
+  
 BtnLoad.addEventListener('click', async () => { 
  
  // query = e.target.elements.query.value.trim();
