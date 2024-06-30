@@ -3,23 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="./css/styles.css"/>
     <title>HW 12</title>
-    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <form>
-        <input type="text" placeholder="Search images...">
-        <button type="submit">Search</button>
-    </form>
-
-    <!-- <p class="loader ">Loading images, please wait...</p> -->
-    
-    <div id="imageResults" class="gallery"></div>
-    <div class="loader-container"><span class="loader hidden"></span></div>
-    <div>
-        <button type="button" class="hidden">
-            <span>Load more</span>
-        </button>
+     <div class="container">
+      <form class="form-inline form-el search-form js-search-form"> 
+          <input type="text" class="form-control" name="query" />
+           <button type="submit" class="btn btn-primary btn-search">Search</button>
+      </form>
+      <ul class="image-list img-list gallery js-article-list"></ul>
+       <button type="button" class="btn-load">Load more</button>
+        <span class="loader">Loading</span>
     </div>
     <script src="./main.js" type="module"></script>
 </body>
